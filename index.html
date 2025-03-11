@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phùng Đức Tài | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, #2ecc71, #3498db);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill:hover {
+            transform: translateY(-5px);
+            background: #2ecc71;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .project {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ---- CSS cho phần thêm trang message ---- */
+        /* Nút email nổi ở góc dưới bên phải */
+        .email-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .email-btn:hover {
+            background: #2ecc71;
+            transform: scale(1.1);
+        }
+
+        /* Modal chứa form liên lạc */
+        .modal {
+            display: none;
+            /* Ẩn mặc định */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            /* Nền mờ */
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+            /* Hiệu ứng trượt xuống */
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            resize: none;
+            /* Cố định kích thước textarea */
+        }
+
+        .modal-content input:focus,
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .modal-content button {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .modal-content button:hover {
+            background: #2ecc71;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        /* ---- Kết thúc CSS cho phần thêm trang message ---- */
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Phùng Đức Tài</h1>
+            <p>Third-year IT Student | Software Developer</p>
+        </header>
+
+        <section class="section" style="--i:1">
+            <h2>About Me</h2>
+            <p>I am a passionate third-year Information Technology student at PTIT Hanoi, specializing in software
+                development with 2 years of experience in web and mobile app development. With an IELTS score of 6.0,
+                I’m ready to contribute to innovative projects in international environments.</p>
+        </section>
+
+        <section class="section" style="--i:2">
+            <h2>Education</h2>
+            <ul>
+                <li><i class="fas fa-graduation-cap"></i> PTIT - Information Technology Engineering (2022 - Present)
+                </li>
+                <li><i class="fas fa-certificate"></i> IELTS - Overall Band Score: 6.0 (2021)</li>
+            </ul>
+        </section>
+
+        <section class="section" style="--i:3">
+            <h2>Skills</h2>
+            <div class="skills">
+                <div class="skill">HTML5 & CSS3</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">Python</div>
+                <div class="skill">Java</div>
+                <div class="skill">React.js</div>
+                <div class="skill">Node.js</div>
+                <div class="skill">SQL & NoSQL</div>
+                <div class="skill">Git & GitHub</div>
+                <div class="skill">Agile</div>
+                <div class="skill">UI/UX</div>
+            </div>
+        </section>
+
+        <section class="section" style="--i:4">
+            <h2>Experience</h2>
+            <ul>
+                <li><i class="fas fa-briefcase"></i> Web Developer Intern - MISA Tech (2022 - 2023)</li>
+                <li><i class="fas fa-briefcase"></i> Freelance Mobile App Developer (2021 - 2022)</li>
+                <li><i class="fas fa-briefcase"></i> IT Support Specialist - Universal Co. (2020 - 2021)</li>
+            </ul>
+        </section>
+
+        <section class="section" style="--i:5">
+            <h2>Projects</h2>
+            <div class="projects">
+                <div class="project">
+                    <h3>E-Commerce Website</h3>
+                    <p>Built with React.js and Node.js, featuring payment gateway and authentication.</p>
+                </div>
+                <div class="project">
+                    <h3>Mobile Task Manager</h3>
+                    <p>Cross-platform app using Flutter with reminders and cloud sync.</p>
+                </div>
+                <div class="project">
+                    <h3>Database Optimization</h3>
+                    <p>Improved query performance by 40% through SQL optimization.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Phùng Đức Tài. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- ---- HTML cho phần thêm trang message ---- -->
+    <!-- Nút email nổi để mở modal -->
+    <div class="email-btn" id="openModal">
+        <i class="fas fa-envelope"></i>
+    </div>
+
+    <!-- Modal chứa form liên lạc -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">×</span>
+            <h2>Contact Me</h2>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <!-- ---- Kết thúc HTML cho phần thêm trang message ---- -->
+
+    <script>
+        // ---- JavaScript cho phần thêm trang message ----
+        // Lấy các phần tử DOM cần thiết cho modal và form
+        const openModalBtn = document.getElementById('openModal'); // Nút email nổi
+        const closeModalBtn = document.getElementById('closeModal'); // Nút đóng modal
+        const modal = document.getElementById('contactModal'); // Modal liên lạc
+        const contactForm = document.getElementById('contactForm'); // Form trong modal
+
+        // Sự kiện mở modal khi click nút email
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'flex'; // Hiển thị modal
+        });
+
+        // Sự kiện đóng modal khi click nút close
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none'; // Ẩn modal
+        });
+
+        // Đóng modal khi click ngoài khu vực modal-content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none'; // Ẩn modal nếu click vào nền
+            }
+        });
+
+        // Xử lý sự kiện gửi form
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Ngăn hành vi mặc định của form
+
+            // Lấy giá trị từ các trường input
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Kiểm tra dữ liệu hợp lệ trước khi gửi
+            if (validateForm(name, email, message)) {
+                simulateEmailSending(name, email, message); // Mô phỏng gửi email
+                alert('Thank you ' + name + '! Your message has been sent successfully.'); // Thông báo thành công
+                contactForm.reset(); // Xóa dữ liệu trong form
+                modal.style.display = 'none'; // Đóng modal
+            }
+        });
+
+        // Hàm kiểm tra tính hợp lệ của dữ liệu nhập vào
+        function validateForm(name, email, message) {
+            // Kiểm tra tên: ít nhất 2 ký tự
+            if (name.length < 2) {
+                alert('Please enter a valid name (at least 2 characters).');
+                return false;
+            }
+
+            // Kiểm tra email: định dạng hợp lệ bằng regex
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            // Kiểm tra tin nhắn: ít nhất 10 ký tự
+            if (message.length < 10) {
+                alert('Please enter a message with at least 10 characters.');
+                return false;
+            }
+
+            return true; // Dữ liệu hợp lệ
+        }
+
+        // Hàm mô phỏng quá trình gửi email
+        function simulateEmailSending(name, email, message) {
+            console.log('Simulating email sending...'); // Log thông báo bắt đầu
+            console.log('To: phungductai@example.com'); // Địa chỉ nhận giả lập
+            console.log('From: ' + email); // Địa chỉ gửi từ người dùng
+            console.log('Subject: New Contact Message from ' + name); // Tiêu đề email
+            console.log('Message: ' + message); // Nội dung tin nhắn
+
+            // Giả lập thời gian gửi bằng Promise và setTimeout
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    console.log('Email simulation completed'); // Log khi hoàn tất
+                    resolve();
+                }, 1000); // Delay 1 giây để giống gửi thật
+            });
+        }
+        // ---- Kết thúc JavaScript cho phần thêm trang message ----
+    </script>
+</body>
+
+</html>
